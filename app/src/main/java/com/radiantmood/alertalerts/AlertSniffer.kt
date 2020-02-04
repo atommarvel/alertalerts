@@ -4,8 +4,9 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_DEFAULT
-import android.app.NotificationManager.IMPORTANCE_HIGH
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import androidx.core.app.NotificationCompat
@@ -21,7 +22,7 @@ class AlertSniffer : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification, rankingMap: RankingMap) {
         super.onNotificationPosted(sbn, rankingMap)
         if (!shouldAlertMuffle(sbn)) {
-            if (shouldAlertAlert(sbn) && enoughTimePassed()) {
+            if (shouldAlertAlert(sbn) && enoughTimePassed() && isBeyondSnoozeBarrier()) {
                 createChannelIfNeeded()
                 postPiercingNotif()
             }
@@ -36,6 +37,12 @@ class AlertSniffer : NotificationListenerService() {
             prefs.edit { putLong(lastPierce, now) }
         }
         return timeHasPassed
+    }
+
+    private fun isBeyondSnoozeBarrier(): Boolean {
+        val now = Calendar.getInstance().timeInMillis
+        val snoozeBarrier = prefs.getLong(snoozeBarrier, 0)
+        return now > snoozeBarrier
     }
 
     private fun createChannelIfNeeded() {
@@ -55,10 +62,18 @@ class AlertSniffer : NotificationListenerService() {
             .setContentText("A notification has triggered!")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setCategory(Notification.CATEGORY_ALARM)
+            .addAction(getSnoozeNotifAction())
         with(NotificationManagerCompat.from(this)) {
-            // notificationId is a unique int for each notification that you must define
             notify(notifId, builder.build())
         }
+    }
+
+    private fun getSnoozeNotifAction(): NotificationCompat.Action {
+        val intent = Intent(this, NotificationActionReceiver::class.java).apply {
+            putActionType(ActionType.SNOOZE)
+        }
+        val pendingIntent = PendingIntent.getBroadcast(this, snoozeReqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return NotificationCompat.Action(R.drawable.ic_launcher_foreground, "Snooze 5 min", pendingIntent)
     }
 
     private fun shouldAlertMuffle(sbn: StatusBarNotification): Boolean =

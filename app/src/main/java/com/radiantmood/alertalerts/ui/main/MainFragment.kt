@@ -2,14 +2,14 @@ package com.radiantmood.alertalerts.ui.main
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.provider.Settings
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.edit
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.radiantmood.alertalerts.R
 import com.radiantmood.alertalerts.muffleSet
 import com.radiantmood.alertalerts.prefName
@@ -47,7 +47,7 @@ class MainFragment : Fragment() {
     private fun setupHardCodedPrefs() {
         if (prefs.contains(triggerSet)) return
         prefs.edit {
-            putStringSet(triggerSet, mutableSetOf("emilia", "poppe", "alertalert"))
+            putStringSet(triggerSet, mutableSetOf("emilia", "poppe", "alertalert", "dove-y"))
             putStringSet(muffleSet, mutableSetOf("silent"))
         }
     }
