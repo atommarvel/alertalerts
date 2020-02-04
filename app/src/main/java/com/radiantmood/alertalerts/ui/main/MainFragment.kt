@@ -12,15 +12,16 @@ import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.radiantmood.alertalerts.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.epoxy.Typed2EpoxyController
+import com.radiantmood.alertalerts.*
 import com.radiantmood.alertalerts.core.App
+import com.radiantmood.alertalerts.data.entity.Rule
 import com.radiantmood.alertalerts.di.DaggerFragmentComponent
 import com.radiantmood.alertalerts.di.FragmentComponent
-import com.radiantmood.alertalerts.muffleSet
-import com.radiantmood.alertalerts.prefName
-import com.radiantmood.alertalerts.triggerSet
 import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
+
 
 class MainFragment : Fragment() {
 
@@ -34,6 +35,8 @@ class MainFragment : Fragment() {
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this, vmFactory)[MainViewModel::class.java]
     }
+
+    val controller = MainController()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,13 +54,20 @@ class MainFragment : Fragment() {
             .also { it.inject(this) }
 
         sniff_btn.setOnClickListener {
-            startActivity( Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+            startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
         }
 
         setupHardCodedPrefs()
 
+
+        rules_rv.layoutManager = LinearLayoutManager(context)
+        rules_rv.adapter = controller.adapter
+
+
         viewModel.rulesLiveData.observe(this, Observer { rules ->
             Log.d("raiff", rules[0].name)
+            controller.setData(true, rules)
+//            controller.requestModelBuild()
         })
 
         viewModel.getRules()
@@ -68,6 +78,19 @@ class MainFragment : Fragment() {
         prefs.edit {
             putStringSet(triggerSet, mutableSetOf("emilia", "poppe", "alertalert", "dove-y"))
             putStringSet(muffleSet, mutableSetOf("silent"))
+        }
+    }
+
+}
+
+//TODO: switch to epoxy recyclerview
+class MainController : Typed2EpoxyController<Boolean, List<Rule>>() {
+    override fun buildModels(showSnifferBanner: Boolean, rules: List<Rule>) {
+        rules.forEach {
+            ruleItem {
+                id(it.id)
+                name(it.name)
+            }
         }
     }
 

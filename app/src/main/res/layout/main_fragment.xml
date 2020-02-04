@@ -12,31 +12,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enable Notification Sniffing Here"
-        app:layout_constraintBottom_toTopOf="@+id/trigger_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/trigger_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TODO: Add Alert Triggers"
-        app:layout_constraintBottom_toTopOf="@+id/muffle_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sniff_btn" />
-
-    <Button
-        android:id="@+id/muffle_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TODO: Add Alert Mufflers"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rules_rv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/sniff_btn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trigger_btn" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
