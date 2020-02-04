@@ -18,10 +18,6 @@ import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private val prefs by lazy { context!!.getSharedPreferences(prefName, Context.MODE_PRIVATE) }
 
     private lateinit var viewModel: MainViewModel
