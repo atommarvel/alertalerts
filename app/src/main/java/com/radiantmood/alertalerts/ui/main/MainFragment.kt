@@ -12,6 +12,8 @@ import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.ui.core.Text
+import androidx.ui.core.setContent
 import com.radiantmood.alertalerts.R
 import com.radiantmood.alertalerts.core.App
 import com.radiantmood.alertalerts.di.DaggerFragmentComponent
@@ -39,7 +41,12 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.main_fragment, container, false).also {
+            // broken because of https://issuetracker.google.com/issues/143232368
+            (view as ViewGroup).setContent {
+                Text("Hello world!")
+            }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
