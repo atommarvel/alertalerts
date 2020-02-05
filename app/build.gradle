@@ -62,6 +62,8 @@ dependencies {
     kapt "com.airbnb.android:epoxy-processor:$epoxy_version" // Add the annotation processor if you are using Epoxy's annotations (recommended)
     implementation "com.airbnb.android:epoxy-databinding:$epoxy_version"
 
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
