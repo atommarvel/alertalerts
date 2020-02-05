@@ -14,9 +14,11 @@ annotation class PerFragment
     [
         ViewModelModule::class,
         ViewModelFactoryModule::class,
-        FragmentActivityModule::class
+        FragmentActivityModule::class,
+        DatabaseModule::class
     ]
 )
+
 interface FragmentComponent {
     fun inject(fragment: MainFragment)
 }

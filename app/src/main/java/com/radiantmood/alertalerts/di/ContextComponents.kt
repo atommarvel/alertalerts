@@ -8,6 +8,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
+// TODO: look into purpose for this
 @Singleton
 @Component(modules = [ContextModule::class])
 interface AppComponent {

@@ -25,7 +25,6 @@ class MainEController @Inject constructor() : TypedEpoxyController<MainModel>(),
     fun observeForMainModel(lifecycleOwner: LifecycleOwner, liveData: LiveData<MainModel>) {
         liveData.observe(lifecycleOwner, Observer {
             setData(it)
-
         })
     }
 
