@@ -4,14 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.radiantmood.alertalerts.data.entity.Rule
+import com.radiantmood.alertalerts.repo.NotifListenerPermissionRepo
 import com.radiantmood.alertalerts.repo.RulesRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
-class MainViewModel
-@Inject constructor(private val rulesRepo: RulesRepo) : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val rulesRepo: RulesRepo,
+    private val notifListenerPermissionRepo: NotifListenerPermissionRepo
+) : ViewModel() {
 
     val mainModelLiveData: MutableLiveData<MainModel> = MutableLiveData()
 
@@ -20,7 +23,12 @@ class MainViewModel
         if (rules.isEmpty()) {
             addHardCodedRules()
         }
-        mainModelLiveData.postValue(MainModel(true, rules))
+        mainModelLiveData.postValue(
+            MainModel(
+                !notifListenerPermissionRepo.isNotifListenerPermissionEnabled(),
+                rules
+            )
+        )
     }
 
     private suspend fun addHardCodedRules() {
