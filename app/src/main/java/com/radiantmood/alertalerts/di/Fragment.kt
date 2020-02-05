@@ -13,7 +13,8 @@ annotation class PerFragment
     modules =
     [
         ViewModelModule::class,
-        ViewModelFactoryModule::class
+        ViewModelFactoryModule::class,
+        FragmentActivityModule::class
     ]
 )
 interface FragmentComponent {
