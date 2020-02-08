@@ -8,7 +8,6 @@ import com.radiantmood.alertalerts.repo.NotifListenerPermissionRepo
 import com.radiantmood.alertalerts.repo.RulesRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -18,24 +17,31 @@ class MainViewModel @Inject constructor(
 
     val mainModelLiveData: MutableLiveData<MainModel> = MutableLiveData()
 
-    fun getRules() = viewModelScope.launch(Dispatchers.IO) {
-        val rules = rulesRepo.getRules()
-        if (rules.isEmpty()) {
-            addHardCodedRules()
-        }
-        mainModelLiveData.postValue(
-            MainModel(
-                !notifListenerPermissionRepo.isNotifListenerPermissionEnabled(),
-                rules
-            )
-        )
+    private var currSnifferState = !notifListenerPermissionRepo.isNotifListenerPermissionEnabled()
+    private var rules = listOf<Rule>()
+
+    private val mainModel get() = MainModel(currSnifferState, rules)
+
+    fun getData() = viewModelScope.launch(Dispatchers.IO) {
+        updateRules()
+        updateSnifferPrompt()
+        mainModelLiveData.postValue(mainModel)
     }
 
-    private suspend fun addHardCodedRules() {
-        val rules = (0..10).map { i ->
-            val now = Calendar.getInstance().timeInMillis
-            Rule(i, now, "Example item #$i", i % 2 == 0)
-        }.toTypedArray()
-        rulesRepo.addRules(*rules)
+    private suspend fun updateRules() {
+        rules = rulesRepo.getRules().also {
+            if (it.isEmpty()) {
+                rulesRepo.addExampleRules()
+            }
+        }
+    }
+
+    private fun updateSnifferPrompt() {
+        currSnifferState = !notifListenerPermissionRepo.isNotifListenerPermissionEnabled()
+    }
+
+    fun checkNotifListenerPermission() {
+        updateSnifferPrompt()
+        mainModelLiveData.value = mainModel
     }
 }

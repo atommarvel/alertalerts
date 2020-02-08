@@ -35,19 +35,15 @@ class MainFragment : Fragment() {
         ViewModelProvider(this, vmFactory)[MainViewModel::class.java]
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        inflater.inflate(R.layout.main_fragment, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupHardCodedPrefs()
         rules_rv.setController(controller)
         controller.observeForMainModel(this, viewModel.mainModelLiveData)
-        viewModel.getRules()
+        viewModel.getData()
     }
 
     override fun onAttach(context: Context) {
@@ -57,6 +53,11 @@ class MainFragment : Fragment() {
             .fragmentActivityModule(FragmentActivityModule(activity!!))
             .build()
             .also { it.inject(this) }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.checkNotifListenerPermission()
     }
 
     private fun setupHardCodedPrefs() {
