@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.edit
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.radiantmood.alertalerts.R
-import com.radiantmood.alertalerts.core.App
-import com.radiantmood.alertalerts.di.DaggerFragmentComponent
-import com.radiantmood.alertalerts.di.FragmentActivityModule
-import com.radiantmood.alertalerts.di.FragmentComponent
+import com.radiantmood.alertalerts.core.BaseFragment
+import com.radiantmood.alertalerts.di.DaggerMainComponent
+import com.radiantmood.alertalerts.di.MainComponent
 import com.radiantmood.alertalerts.muffleSet
 import com.radiantmood.alertalerts.prefName
 import com.radiantmood.alertalerts.triggerSet
@@ -20,11 +18,11 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
 
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
 
     private val prefs by lazy { context!!.getSharedPreferences(prefName, Context.MODE_PRIVATE) }
 
-    lateinit var fragmentComponent: FragmentComponent
+    lateinit var mainComponent: MainComponent
 
     @Inject
     lateinit var controller: MainEController
@@ -48,9 +46,8 @@ class MainFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        fragmentComponent = DaggerFragmentComponent.builder()
-            .appComponent(App.appComponent)
-            .fragmentActivityModule(FragmentActivityModule(activity!!))
+        mainComponent = DaggerMainComponent.builder()
+            .fragmentComponent(fragmentComponent)
             .build()
             .also { it.inject(this) }
     }
