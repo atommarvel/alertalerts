@@ -3,7 +3,7 @@ package com.radiantmood.alertalerts.core
 import android.app.Application
 import com.facebook.stetho.Stetho
 import com.radiantmood.alertalerts.di.AppComponent
-import com.radiantmood.alertalerts.di.ContextModule
+import com.radiantmood.alertalerts.di.AppContextModule
 import com.radiantmood.alertalerts.di.DaggerAppComponent
 
 
@@ -17,7 +17,7 @@ class App : Application() {
 
     private fun initDagger() {
         appComponent = DaggerAppComponent.builder()
-            .contextModule(ContextModule(this))
+            .appContextModule(AppContextModule(this))
             .build()
     }
 
