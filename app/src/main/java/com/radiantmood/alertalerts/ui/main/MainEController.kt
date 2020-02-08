@@ -29,13 +29,21 @@ class MainEController @Inject constructor() : TypedEpoxyController<MainModel>(),
     }
 
     override fun buildModels(mainModel: MainModel) {
-        if (mainModel.showSnifferPrompt) {
+        renderSnifferPrompt(mainModel.showSnifferPrompt)
+        renderRules(mainModel.rules)
+    }
+
+    private fun renderSnifferPrompt(showSnifferPrompt: Boolean) {
+        if (showSnifferPrompt) {
             snifferPrompt {
                 id(snifferId)
                 mainHandlers(this@MainEController)
             }
         }
-        mainModel.rules.forEach {
+    }
+
+    private fun renderRules(rules: List<Rule>) {
+        rules.forEach {
             ruleItem {
                 id(it.id)
                 name(it.name)
