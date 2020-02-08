@@ -7,8 +7,10 @@ import android.app.NotificationManager.IMPORTANCE_DEFAULT
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
@@ -23,7 +25,9 @@ class AlertSniffer : NotificationListenerService() {
         super.onNotificationPosted(sbn, rankingMap)
         if (!shouldAlertMuffle(sbn)) {
             if (shouldAlertAlert(sbn) && enoughTimePassed() && isBeyondSnoozeBarrier()) {
-                createChannelIfNeeded()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    createChannelIfNeeded()
+                }
                 postPiercingNotif()
             }
         }
@@ -45,6 +49,7 @@ class AlertSniffer : NotificationListenerService() {
         return now > snoozeBarrier
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createChannelIfNeeded() {
         val channel = NotificationChannel(channelId, "Alert!Alert!", IMPORTANCE_DEFAULT).apply {
             description = "Get sound alerts for specific silent alerts"
