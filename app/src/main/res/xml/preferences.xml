@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:iconSpaceReserved="false"
+        app:key="alertalerts.masterRuleSwitchPref"
+        app:title="Enable rule triggering alerts" />
+
+    <SwitchPreferenceCompat
+        android:title="Auto-dismiss notification"
+        app:iconSpaceReserved="false"
+        app:key="alertalerts.autoRemoveNotif"
+        app:summary="After making a notification sound, dismiss alerting notification automatically." />
+
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="feedback"
+        app:summary="Report technical issues or suggest new features"
+        app:title="Send feedback" />
+
+</PreferenceScreen>

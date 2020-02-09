@@ -33,7 +33,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     def nav_version = "2.2.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -42,6 +42,7 @@ dependencies {
     def room_version = "2.2.3"
     implementation "androidx.room:room-runtime:$room_version"
     // For Kotlin use kapt instead of annotationProcessor
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.room:room-compiler:$room_version"
 
     // optional - Kotlin Extensions and Coroutines support for Room
@@ -63,7 +64,8 @@ dependencies {
 
     def epoxy_version = "3.9.0"
     implementation "com.airbnb.android:epoxy:$epoxy_version"
-    kapt "com.airbnb.android:epoxy-processor:$epoxy_version" // Add the annotation processor if you are using Epoxy's annotations (recommended)
+    kapt "com.airbnb.android:epoxy-processor:$epoxy_version"
+    // Add the annotation processor if you are using Epoxy's annotations (recommended)
     implementation "com.airbnb.android:epoxy-databinding:$epoxy_version"
 
     implementation 'com.facebook.stetho:stetho:1.5.1'
