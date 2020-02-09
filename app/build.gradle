@@ -47,6 +47,10 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
 
+    def pref_version = "1.1.0"
+    implementation "androidx.preference:preference:$pref_version"
+    implementation "androidx.preference:preference-ktx:$pref_version"
+
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
