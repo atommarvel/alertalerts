@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.radiantmood.alertalerts.ui.main.MainFragment"
-        android:label="main_fragment"
+        android:label="AlertAlerts"
         tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_mainFragment_to_prefFragment"
@@ -17,6 +17,6 @@
     <fragment
         android:id="@+id/prefFragment"
         android:name="com.radiantmood.alertalerts.ui.pref.PrefFragment"
-        android:label="fragment_pref"
+        android:label="Settings"
         tools:layout="@layout/fragment_pref" />
 </navigation>

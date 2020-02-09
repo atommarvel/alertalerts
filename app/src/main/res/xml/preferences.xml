@@ -19,4 +19,19 @@
         app:summary="Report technical issues or suggest new features"
         app:title="Send feedback" />
 
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="about"
+        app:title="About app" />
+
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="tos"
+        app:title="Terms of Service" />
+
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="privacy"
+        app:title="Privacy Notice" />
+
 </PreferenceScreen>

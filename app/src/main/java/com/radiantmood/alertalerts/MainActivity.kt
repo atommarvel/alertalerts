@@ -6,6 +6,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +18,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         setSupportActionBar(toolbar)
+        toolbar.setupWithNavController(navCtrl)
+        setupNavListener()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -23,13 +27,15 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        R.id.action_add -> TODO()
-        R.id.action_settings -> {
-            navCtrl.navigate(R.id.prefFragment)
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(navCtrl) || super.onOptionsItemSelected(item)
     }
+
+    fun setupNavListener() {
+        navCtrl.addOnDestinationChangedListener { controller, destination, arguments ->
+            toolbar.title = destination.label
+        }
+    }
+
 
 }
