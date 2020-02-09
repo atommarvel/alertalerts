@@ -1,4 +1,4 @@
-package com.radiantmood.alertalerts
+package com.radiantmood.alertalerts.core
 
 const val prefName = "alertalerts.prefName"
 const val triggerSet = "alertalerts.triggerSet"

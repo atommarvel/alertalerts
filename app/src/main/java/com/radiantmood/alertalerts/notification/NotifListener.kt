@@ -1,4 +1,4 @@
-package com.radiantmood.alertalerts
+package com.radiantmood.alertalerts.notification
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -14,10 +14,12 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
+import com.radiantmood.alertalerts.R
+import com.radiantmood.alertalerts.core.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class AlertSniffer : NotificationListenerService() {
+class NotifListener : NotificationListenerService() {
 
     private val prefs by lazy { getSharedPreferences(prefName, Context.MODE_PRIVATE) }
 
@@ -74,10 +76,13 @@ class AlertSniffer : NotificationListenerService() {
     }
 
     private fun getSnoozeNotifAction(): NotificationCompat.Action {
-        val intent = Intent(this, NotificationActionReceiver::class.java).apply {
-            putActionType(ActionType.SNOOZE)
+        val intent = Intent(this, NotifActionReceiver::class.java).apply {
+            putActionType(NotifActionType.SNOOZE)
         }
-        val pendingIntent = PendingIntent.getBroadcast(this, snoozeReqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            snoozeReqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        )
         return NotificationCompat.Action(R.drawable.ic_launcher_foreground, "Snooze 5 min", pendingIntent)
     }
 

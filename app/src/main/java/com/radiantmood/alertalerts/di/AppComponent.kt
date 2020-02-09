@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @Component(modules = [AppContextModule::class, DatabaseModule::class])
 interface AppComponent {
     fun ruleDatabase(): RuleDatabase
+    fun appContext(): Context
 
     fun inject(app: Application)
 }

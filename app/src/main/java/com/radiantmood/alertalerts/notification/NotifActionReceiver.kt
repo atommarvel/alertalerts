@@ -1,4 +1,4 @@
-package com.radiantmood.alertalerts
+package com.radiantmood.alertalerts.notification
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -6,14 +6,17 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
+import com.radiantmood.alertalerts.core.notifId
+import com.radiantmood.alertalerts.core.prefName
+import com.radiantmood.alertalerts.core.snoozeBarrier
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class NotificationActionReceiver : BroadcastReceiver() {
+class NotifActionReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.getActionType()) {
-            ActionType.SNOOZE -> snoozeNotifs(context, intent)
+            NotifActionType.SNOOZE -> snoozeNotifs(context, intent)
         }
     }
 

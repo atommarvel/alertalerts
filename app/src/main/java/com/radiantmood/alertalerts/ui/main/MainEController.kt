@@ -9,15 +9,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.airbnb.epoxy.TypedEpoxyController
 import com.radiantmood.alertalerts.data.entity.Rule
-import com.radiantmood.alertalerts.ruleItem
-import com.radiantmood.alertalerts.snifferPrompt
+import com.radiantmood.alertalerts.ui.common.NavToNotifSettingsHandler
+import com.radiantmood.alertalerts.ui.common.renderRules
+import com.radiantmood.alertalerts.ui.common.renderSnifferPrompt
 import javax.inject.Inject
 
+/**
+ * Container for all the data to render on the main screen.
+ */
 data class MainModel(val showSnifferPrompt: Boolean, val rules: List<Rule>)
 
-class MainEController @Inject constructor() : TypedEpoxyController<MainModel>(), MainHandlers {
-
-    val snifferId = 1
+class MainEController @Inject constructor() : TypedEpoxyController<MainModel>(), NavToNotifSettingsHandler {
 
     @Inject
     lateinit var activity: FragmentActivity
@@ -29,26 +31,8 @@ class MainEController @Inject constructor() : TypedEpoxyController<MainModel>(),
     }
 
     override fun buildModels(mainModel: MainModel) {
-        renderSnifferPrompt(mainModel.showSnifferPrompt)
+        renderSnifferPrompt(mainModel.showSnifferPrompt, this)
         renderRules(mainModel.rules)
-    }
-
-    private fun renderSnifferPrompt(showSnifferPrompt: Boolean) {
-        if (showSnifferPrompt) {
-            snifferPrompt {
-                id(snifferId)
-                mainHandlers(this@MainEController)
-            }
-        }
-    }
-
-    private fun renderRules(rules: List<Rule>) {
-        rules.forEach {
-            ruleItem {
-                id(it.id)
-                name(it.name)
-            }
-        }
     }
 
     override fun navToNotifSettings(view: View) {

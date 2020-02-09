@@ -1,4 +1,4 @@
-package com.radiantmood.alertalerts.di
+package com.radiantmood.alertalerts.di.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.radiantmood.alertalerts.ui.main.MainViewModel

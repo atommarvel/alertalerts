@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="mainHandlers"
-            type="com.radiantmood.alertalerts.ui.main.MainHandlers" />
+            name="handler"
+            type="com.radiantmood.alertalerts.ui.common.NavToNotifSettingsHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@id/explain_tv"
-            android:onClick="@{mainHandlers::navToNotifSettings}" />
+            android:onClick="@{handler::navToNotifSettings}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

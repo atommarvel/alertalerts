@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name=".NotificationActionReceiver"
+            android:name=".notification.NotifActionReceiver"
             android:enabled="true"
             android:exported="true"></receiver>
 
@@ -24,7 +24,7 @@
         </activity>
 
         <service
-            android:name=".AlertSniffer"
+            android:name=".notification.NotifListener"
             android:label="Let me sniff!"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>

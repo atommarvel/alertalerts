@@ -1,16 +1,17 @@
 package com.radiantmood.alertalerts.repo
 
 import android.content.ComponentName
+import android.content.Context
 import android.provider.Settings
-import androidx.fragment.app.FragmentActivity
-import com.radiantmood.alertalerts.AlertSniffer
+import com.radiantmood.alertalerts.notification.NotifListener
 import javax.inject.Inject
 
-
-class NotifListenerPermissionRepo @Inject constructor(private val fragmentActivity: FragmentActivity) {
+/**
+ * Check if [NotifListener] is enabled by Android system.
+ */
+class NotifListenerPermissionRepo @Inject constructor(private val context: Context) {
     fun isNotifListenerPermissionEnabled(): Boolean {
-        val context = fragmentActivity
-        val cn = ComponentName(context, AlertSniffer::class.java)
+        val cn = ComponentName(context, NotifListener::class.java)
         val flat: String? =
             Settings.Secure.getString(context.contentResolver, "enabled_notification_listeners")
         return flat?.contains(cn.flattenToString()) == true

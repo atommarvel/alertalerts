@@ -3,11 +3,13 @@ package com.radiantmood.alertalerts.ui.main
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.radiantmood.alertalerts.BuildConfig
 import com.radiantmood.alertalerts.data.entity.Rule
 import com.radiantmood.alertalerts.repo.NotifListenerPermissionRepo
 import com.radiantmood.alertalerts.repo.RulesRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -30,10 +32,18 @@ class MainViewModel @Inject constructor(
 
     private suspend fun updateRules() {
         rules = rulesRepo.getRules().also {
-            if (it.isEmpty()) {
-                rulesRepo.addExampleRules()
+            if (it.isEmpty() && BuildConfig.DEBUG) {
+                setupDebugRules()
             }
         }
+    }
+
+    private suspend fun setupDebugRules() {
+        val now = Calendar.getInstance().timeInMillis
+        val rules = listOf(
+            Rule(0, now, "Emilia", true)
+        )
+        rulesRepo.addRules(*rules.toTypedArray())
     }
 
     private fun updateSnifferPrompt() {

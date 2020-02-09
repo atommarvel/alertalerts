@@ -9,11 +9,11 @@ import androidx.core.content.edit
 import androidx.lifecycle.ViewModelProvider
 import com.radiantmood.alertalerts.R
 import com.radiantmood.alertalerts.core.BaseFragment
+import com.radiantmood.alertalerts.core.muffleSet
+import com.radiantmood.alertalerts.core.prefName
+import com.radiantmood.alertalerts.core.triggerSet
 import com.radiantmood.alertalerts.di.DaggerMainComponent
 import com.radiantmood.alertalerts.di.MainComponent
-import com.radiantmood.alertalerts.muffleSet
-import com.radiantmood.alertalerts.prefName
-import com.radiantmood.alertalerts.triggerSet
 import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
 
@@ -46,15 +46,19 @@ class MainFragment : BaseFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mainComponent = DaggerMainComponent.builder()
-            .fragmentComponent(fragmentComponent)
-            .build()
-            .also { it.inject(this) }
+        initMainComponent()
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.checkNotifListenerPermission()
+    }
+
+    private fun initMainComponent() {
+        mainComponent = DaggerMainComponent.builder()
+            .fragmentComponent(fragmentComponent)
+            .build()
+            .also { it.inject(this) }
     }
 
     private fun setupHardCodedPrefs() {
