@@ -16,4 +16,7 @@ interface RuleDao {
 
     @Query("SELECT * FROM rule ORDER BY ENABLED, LAST_UPDATED DESC")
     suspend fun loadAllRules(): List<Rule>
+
+    @Query("SELECT * FROM rule WHERE enabled = 1")
+    suspend fun loadEnabledRules(): List<Rule>
 }

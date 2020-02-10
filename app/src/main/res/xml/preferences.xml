@@ -4,14 +4,15 @@
 
     <SwitchPreferenceCompat
         app:iconSpaceReserved="false"
-        app:key="alertalerts.masterRuleSwitchPref"
+        app:key="alertalerts.pref.masterRuleSwitch"
         app:title="Enable rule triggering alerts" />
 
     <SwitchPreferenceCompat
         android:title="Auto-dismiss notification"
         app:iconSpaceReserved="false"
-        app:key="alertalerts.autoRemoveNotif"
+        app:key="alertalerts.pref.autoRemoveNotif"
         app:summary="After making a notification sound, dismiss alerting notification automatically." />
+
 
     <Preference
         app:iconSpaceReserved="false"

@@ -8,7 +8,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
 import com.radiantmood.alertalerts.core.notifId
 import com.radiantmood.alertalerts.core.prefName
-import com.radiantmood.alertalerts.core.snoozeBarrier
+import com.radiantmood.alertalerts.core.snoozeBarrierPref
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -23,7 +23,7 @@ class NotifActionReceiver : BroadcastReceiver() {
     private fun snoozeNotifs(context: Context, intent: Intent) {
         val fiveAhead = Calendar.getInstance().timeInMillis + TimeUnit.MINUTES.toMillis(5)
         getPrefs(context).edit {
-            putLong(snoozeBarrier, fiveAhead)
+            putLong(snoozeBarrierPref, fiveAhead)
         }
         with(NotificationManagerCompat.from(context)) {
             cancel(notifId)

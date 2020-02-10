@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.radiantmood.alertalerts.BuildConfig
 import com.radiantmood.alertalerts.data.entity.Rule
+import com.radiantmood.alertalerts.data.entity.RuleAttrType
+import com.radiantmood.alertalerts.data.entity.RuleAttribute
 import com.radiantmood.alertalerts.repo.NotifListenerPermissionRepo
 import com.radiantmood.alertalerts.repo.RulesRepo
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +32,11 @@ class MainViewModel @Inject constructor(
         mainModelLiveData.postValue(mainModel)
     }
 
+    fun checkNotifListenerPermission() {
+        updateSnifferPrompt()
+        mainModelLiveData.value = mainModel
+    }
+
     private suspend fun updateRules() {
         rules = rulesRepo.getRules().also {
             if (it.isEmpty() && BuildConfig.DEBUG) {
@@ -38,20 +45,22 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun updateSnifferPrompt() {
+        currSnifferState = !notifListenerPermissionRepo.isNotifListenerPermissionEnabled()
+    }
+
     private suspend fun setupDebugRules() {
         val now = Calendar.getInstance().timeInMillis
         val rules = listOf(
             Rule(0, now, "Emilia", true)
         )
+        val ruleAttributes = listOf(
+            RuleAttribute(0, 0, RuleAttrType.TRIGGER, "emilia"),
+            RuleAttribute(1, 0, RuleAttrType.TRIGGER, "poppe"),
+            RuleAttribute(2, 0, RuleAttrType.TRIGGER, "dove-y"),
+            RuleAttribute(3, 0, RuleAttrType.SUPPRESS, "silent")
+        )
         rulesRepo.addRules(*rules.toTypedArray())
-    }
-
-    private fun updateSnifferPrompt() {
-        currSnifferState = !notifListenerPermissionRepo.isNotifListenerPermissionEnabled()
-    }
-
-    fun checkNotifListenerPermission() {
-        updateSnifferPrompt()
-        mainModelLiveData.value = mainModel
+        rulesRepo.addRuleAttributes(*ruleAttributes.toTypedArray())
     }
 }
