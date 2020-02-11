@@ -14,9 +14,10 @@ import com.radiantmood.alertalerts.R
 import com.radiantmood.alertalerts.core.channelId
 import com.radiantmood.alertalerts.core.notifId
 import com.radiantmood.alertalerts.core.snoozeReqCode
+import com.radiantmood.alertalerts.repo.PrefsRepo
 import javax.inject.Inject
 
-class NotifPoster @Inject constructor(private val context: Context) {
+class NotifPoster @Inject constructor(private val context: Context, private val prefsRepo: PrefsRepo) {
     fun postPiercingNotif() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannelIfNeeded()
@@ -52,6 +53,10 @@ class NotifPoster @Inject constructor(private val context: Context) {
             context,
             snoozeReqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT
         )
-        return NotificationCompat.Action(R.drawable.ic_launcher_foreground, "Snooze 5 min", pendingIntent)
+        return NotificationCompat.Action(
+            R.drawable.ic_launcher_foreground,
+            "Snooze ${prefsRepo.snoozeDuration} min",
+            pendingIntent
+        )
     }
 }

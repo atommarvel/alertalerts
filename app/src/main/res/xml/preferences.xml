@@ -3,16 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreferenceCompat
+        android:defaultValue="true"
         app:iconSpaceReserved="false"
         app:key="alertalerts.pref.masterRuleSwitch"
         app:title="Enable rule triggering alerts" />
 
     <SwitchPreferenceCompat
+        android:defaultValue="false"
         android:title="Auto-dismiss notification"
         app:iconSpaceReserved="false"
         app:key="alertalerts.pref.autoRemoveNotif"
         app:summary="After making a notification sound, dismiss alerting notification automatically." />
 
+    <SeekBarPreference
+        android:defaultValue="5"
+        android:title="Snooze"
+        app:iconSpaceReserved="false"
+        app:key="alertalerts.pref.snoozeDuration"
+        app:summary="The snooze time, in minutes, to not trigger alerts" />
 
     <Preference
         app:iconSpaceReserved="false"

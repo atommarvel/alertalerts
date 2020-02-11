@@ -37,9 +37,9 @@ class IntPrefDelegate(private val key: String, private val defValue: Int, privat
         return prefs.getInt(key, defValue)
     }
 
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Int) {
         prefs.edit {
-            putString(key, value)
+            putInt(key, value)
         }
     }
 }

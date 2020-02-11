@@ -22,10 +22,12 @@ class NotifMatcher @Inject constructor(private val rulesRepo: RulesRepo, private
                 isBeyondSnoozeBarrier()
     }
 
+    /**
+     * Only trigger every 5 seconds max.
+     */
     private fun enoughTimePassed(): Boolean {
         val now = Calendar.getInstance().timeInMillis
         val latestPierce = prefsRepo.lastPierce
-        // TODO: 5 second check customizable by the user
         val timeHasPassed = now - latestPierce > TimeUnit.SECONDS.toMillis(5)
         if (timeHasPassed) {
             prefsRepo.lastPierce = now

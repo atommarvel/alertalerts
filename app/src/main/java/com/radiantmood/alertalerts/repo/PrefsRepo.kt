@@ -1,11 +1,9 @@
 package com.radiantmood.alertalerts.repo
 
 import android.content.SharedPreferences
-import com.radiantmood.alertalerts.core.autoRemoveNotifPref
-import com.radiantmood.alertalerts.core.lastPiercePref
-import com.radiantmood.alertalerts.core.masterRuleSwitchPref
-import com.radiantmood.alertalerts.core.snoozeBarrierPref
+import com.radiantmood.alertalerts.core.*
 import com.radiantmood.alertalerts.util.BooleanPrefDelegate
+import com.radiantmood.alertalerts.util.IntPrefDelegate
 import com.radiantmood.alertalerts.util.LongPrefDelegate
 import javax.inject.Inject
 
@@ -21,4 +19,5 @@ class PrefsRepo @Inject constructor(private val prefs: SharedPreferences) {
 
     var snoozeBarrier by LongPrefDelegate(snoozeBarrierPref, 0, prefs)
 
+    var snoozeDuration by IntPrefDelegate(snoozeDurationPref, 5, prefs)
 }

@@ -7,6 +7,7 @@ const val snoozeReqCode = 321
 const val prefName = "alertalerts.pref.name"
 const val lastPiercePref = "alertalerts.pref.lastPierce"
 const val snoozeBarrierPref = "alertalerts.pref.snoozeBarrier"
+const val snoozeDurationPref = "alertalerts.pref.snoozeDuration"
 const val masterRuleSwitchPref = "alertalerts.pref.masterRuleSwitch"
 const val autoRemoveNotifPref = "alertalerts.pref.autoRemoveNotif"
 
