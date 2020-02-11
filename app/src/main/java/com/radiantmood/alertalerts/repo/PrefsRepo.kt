@@ -7,7 +7,6 @@ import com.radiantmood.alertalerts.util.IntPrefDelegate
 import com.radiantmood.alertalerts.util.LongPrefDelegate
 import javax.inject.Inject
 
-// TODO: maybe turn into a notif qualifications repo
 class PrefsRepo @Inject constructor(private val prefs: SharedPreferences) {
 
     var masterSwitch by BooleanPrefDelegate(masterRuleSwitchPref, true, prefs)
