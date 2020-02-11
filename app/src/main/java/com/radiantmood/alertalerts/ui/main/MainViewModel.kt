@@ -24,7 +24,7 @@ class MainViewModel @Inject constructor(
     private var currSnifferState = !notifListenerPermissionRepo.isNotifListenerPermissionEnabled()
     private var rules = listOf<Rule>()
 
-    private val mainModel get() = MainModel(currSnifferState, rules)
+    private val mainModel get() = MainModel(currSnifferState, "Your Rules", rules)
 
     fun getData() = viewModelScope.launch(Dispatchers.IO) {
         updateRules()

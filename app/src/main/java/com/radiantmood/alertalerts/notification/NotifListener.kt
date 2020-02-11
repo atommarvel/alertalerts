@@ -34,7 +34,10 @@ class NotifListener : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification, rankingMap: RankingMap) {
         ensureInjection()
         super.onNotificationPosted(sbn, rankingMap)
-        // TODO: might need to be workmanager instead since this will get triggered when app is in bg?
+        /*
+           TODO: might need to be workmanager instead since this will get triggered when app is in bg?
+           Keep an eye on it.
+         */
         GlobalScope.launch(Dispatchers.IO) {
             if (notifMatcher.doesStringsMatchRule(sbn.getNotificationStrings())) {
                 notifPoster.postPiercingNotif()
