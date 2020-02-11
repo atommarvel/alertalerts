@@ -1,6 +1,5 @@
 package com.radiantmood.alertalerts.notification
 
-import android.app.Notification
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.radiantmood.alertalerts.core.App
@@ -9,7 +8,6 @@ import com.radiantmood.alertalerts.di.NotifListenerComponent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 class NotifListener : NotificationListenerService() {
@@ -39,19 +37,9 @@ class NotifListener : NotificationListenerService() {
            Keep an eye on it.
          */
         GlobalScope.launch(Dispatchers.IO) {
-            if (notifMatcher.doesStringsMatchRule(sbn.getNotificationStrings())) {
+            if (notifMatcher.doesNotificationMatchRule(sbn)) {
                 notifPoster.postPiercingNotif()
             }
         }
     }
-
-    private fun StatusBarNotification.getNotificationStrings() = listOf(title, text)
-
-    private val StatusBarNotification.title
-        get() = this.notification.extras.getCharSequence(Notification.EXTRA_TEXT, "").toString()
-            .toLowerCase(Locale.ROOT)
-
-    private val StatusBarNotification.text
-        get() = this.notification.extras.getCharSequence(Notification.EXTRA_TITLE, "")
-            .toString().toLowerCase(Locale.ROOT)
 }

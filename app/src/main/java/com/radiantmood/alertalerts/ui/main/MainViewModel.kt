@@ -52,14 +52,20 @@ class MainViewModel @Inject constructor(
     private suspend fun setupDebugRules() {
         val now = Calendar.getInstance().timeInMillis
         val rules = listOf(
-            Rule(0, now, "Emilia", true)
+            Rule(0, now, "Emilia", true),
+            Rule(1, now, "Emilia Messenger", true)
         )
         val ruleAttributes = listOf(
             RuleAttribute(0, 0, RuleAttrType.TRIGGER, "emilia"),
             RuleAttribute(1, 0, RuleAttrType.TRIGGER, "poppe"),
-            RuleAttribute(2, 0, RuleAttrType.TRIGGER, "dove-y"),
-            RuleAttribute(3, 0, RuleAttrType.SUPPRESS, "silent")
+            RuleAttribute(2, 0, RuleAttrType.SUPPRESS, "silent"),
+
+            // 'com.facebook.orca' is messenger
+            RuleAttribute(3, 1, RuleAttrType.APP_FILTER, "com.facebook.orca"),
+            RuleAttribute(4, 1, RuleAttrType.TRIGGER, "dove-y"),
+            RuleAttribute(5, 1, RuleAttrType.SUPPRESS, "silent")
         )
+
         rulesRepo.addRules(*rules.toTypedArray())
         rulesRepo.addRuleAttributes(*ruleAttributes.toTypedArray())
     }
