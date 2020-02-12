@@ -2,6 +2,7 @@ package com.radiantmood.alertalerts.di.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.radiantmood.alertalerts.ui.main.MainViewModel
+import com.radiantmood.alertalerts.ui.ruleform.RuleFormViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -13,8 +14,8 @@ abstract class ViewModelModule {
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
 
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(RuleFormViewModel::class)
-//    abstract fun bindRuleFormViewModel(ruleFormViewModel: RuleFormViewModel): ViewModel
+    @Binds
+    @IntoMap
+    @ViewModelKey(RuleFormViewModel::class)
+    abstract fun bindRuleFormViewModel(ruleFormViewModel: RuleFormViewModel): ViewModel
 }

@@ -1,6 +1,5 @@
 package com.radiantmood.alertalerts.ui.main
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +16,7 @@ class MainFragment : BaseFragment() {
     @Inject
     lateinit var controller: MainEController
 
-    @Inject
-    lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by lazy { getViewModel(MainViewModel::class.java) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.main_fragment, container, false)
@@ -30,17 +28,13 @@ class MainFragment : BaseFragment() {
         viewModel.getData()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        initMainComponent()
-    }
-
     override fun onResume() {
         super.onResume()
         viewModel.checkNotifListenerPermission()
     }
 
-    private fun initMainComponent() {
+    override fun onDI() {
+        super.onDI()
         DaggerMainComponent.builder()
             .fragmentComponent(fragmentComponent)
             .build()

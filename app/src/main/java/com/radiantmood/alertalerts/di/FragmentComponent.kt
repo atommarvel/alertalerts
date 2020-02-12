@@ -26,7 +26,7 @@ annotation class PerFragment
 )
 
 interface FragmentComponent {
-    fun viewModelProviderFactory(): ViewModelProvider.Factory
+    fun factory(): ViewModelProvider.Factory
     fun fragment(): Fragment
     fun ruleDb(): RuleDatabase
     fun appContext(): Context
