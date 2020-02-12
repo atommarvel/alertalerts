@@ -3,7 +3,7 @@ package com.radiantmood.alertalerts.ui.main
 import android.content.Intent
 import android.provider.Settings
 import android.view.View
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -25,7 +25,7 @@ data class MainModel(val showSnifferPrompt: Boolean, val title: String, val rule
 class MainEController @Inject constructor() : TypedEpoxyController<MainModel>(), NavToNotifSettingsHandler {
 
     @Inject
-    lateinit var activity: FragmentActivity
+    lateinit var fragment: Fragment
 
     fun observeForMainModel(lifecycleOwner: LifecycleOwner, liveData: LiveData<MainModel>) {
         liveData.observe(lifecycleOwner, Observer {
@@ -40,7 +40,7 @@ class MainEController @Inject constructor() : TypedEpoxyController<MainModel>(),
     }
 
     override fun navToNotifSettings(view: View) {
-        activity.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+        fragment.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
     }
 
 }

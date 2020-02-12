@@ -12,4 +12,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
+
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(RuleFormViewModel::class)
+//    abstract fun bindRuleFormViewModel(ruleFormViewModel: RuleFormViewModel): ViewModel
 }

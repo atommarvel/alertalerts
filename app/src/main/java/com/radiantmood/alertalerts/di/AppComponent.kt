@@ -3,7 +3,6 @@ package com.radiantmood.alertalerts.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.fragment.app.FragmentActivity
 import com.radiantmood.alertalerts.core.App
 import com.radiantmood.alertalerts.data.database.RuleDatabase
 import dagger.Component
@@ -19,12 +18,6 @@ interface AppComponent {
     fun prefs(): SharedPreferences
 
     fun inject(app: Application)
-}
-
-@Module
-class FragmentActivityModule(private val fragmentActivity: FragmentActivity) {
-    @Provides
-    fun fragmentActivity(): FragmentActivity = fragmentActivity
 }
 
 @Module
