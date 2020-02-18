@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_mainFragment_to_prefFragment"
             app:destination="@id/prefFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_ruleFormFragment"
+            app:destination="@id/ruleFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/prefFragment"
         android:name="com.radiantmood.alertalerts.ui.pref.PrefFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_pref" />
+    <fragment
+        android:id="@+id/ruleFormFragment"
+        android:name="com.radiantmood.alertalerts.ui.ruleform.RuleFormFragment"
+        android:label="Add/Update Rule"
+        tools:layout="@layout/rule_form_fragment" />
 </navigation>

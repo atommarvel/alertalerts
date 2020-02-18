@@ -1,19 +1,43 @@
 package com.radiantmood.alertalerts.ui.ruleform
 
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.airbnb.epoxy.TypedEpoxyController
+import com.radiantmood.alertalerts.formEditText
+import com.radiantmood.alertalerts.ui.common.watch
 
-data class RuleFormModel(val holder: Boolean = true)
+data class RuleFormModel(val ruleName: FormEditTextModel)
 
-class RuleFormEController : TypedEpoxyController<RuleFormViewModel>() {
-    override fun buildModels(data: RuleFormViewModel) {
-        // TODO: RESUME - render formTop and add listeners
-        // title edit text
-        // rule enabled/disabled
-        // add app filter
-        // current app filters
-        // trigger edit text & add
+data class FormEditTextModel(val id: Int, val title: String, val hint: String, val input: String = "")
+
+class RuleFormEController(private val viewModel: RuleFormViewModel) : TypedEpoxyController<RuleFormModel>() {
+
+    fun observeForRuleFormModel(lifecycleOwner: LifecycleOwner, liveData: LiveData<RuleFormModel>) {
+        liveData.observe(lifecycleOwner, Observer {
+            setData(it)
+        })
+    }
+
+    override fun buildModels(data: RuleFormModel) {
+        val ruleName = data.ruleName
+        formEditText {
+            id(ruleName.id)
+            title(ruleName.title)
+            hint(ruleName.hint)
+            input(ruleName.input)
+            watch(viewModel.titleTextWatcher)
+        }
+        // rule enabled/disabled SwitchCompat
+
+        // add app filter button
+        // current app filters with deletion
+
+        // triggers edit text & add btn
         // current triggers with deletion
-        // suppress edit text & add
+
+        // suppressors edit text & add btn
         // current suppress with deletion
     }
 }
+

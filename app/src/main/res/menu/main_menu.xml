@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_add"
+        android:id="@id/ruleFormFragment"
         android:icon="@drawable/ic_add"
         android:title="Add"
         app:showAsAction="ifRoom" />
