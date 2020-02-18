@@ -14,6 +14,7 @@ data class FormEditTextModel(val id: Int, val title: String, val hint: String, v
 class RuleFormEController(private val viewModel: RuleFormViewModel) : TypedEpoxyController<RuleFormModel>() {
 
     fun observeForRuleFormModel(lifecycleOwner: LifecycleOwner, liveData: LiveData<RuleFormModel>) {
+        // TODO: consider having a separate live data for edit texts to reduce the amount of calls made
         liveData.observe(lifecycleOwner, Observer {
             setData(it)
         })
